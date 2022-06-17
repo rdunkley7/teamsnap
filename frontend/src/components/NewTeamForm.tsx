@@ -17,7 +17,7 @@ const NewTeamForm: React.FC<Props> = ({submitTeam, baseurl}) => {
       </label>
       <input type="submit" onClick={(e) => {
         e.preventDefault();
-        submitTeam({url: baseurl + "/new-team", name: name});
+        submitTeam({url: baseurl + "/new-team", team_name: name});
       }} />
     </div>
   );

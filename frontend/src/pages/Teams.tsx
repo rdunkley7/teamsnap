@@ -3,24 +3,25 @@ import TeamCard from '../components/TeamCard';
 
 
 const Teams: React.FC<{teams: any[]} & {getTeams: any}> = ({teams, getTeams}) => {
-  const [cards, setCards] = React.useState<any>([]);
-  React.useEffect(() => {
-    setCards([]);
-  }, [teams]);
+  const [data, dataSet] = React.useState<any>([])
 
   React.useEffect(() => {
-    getTeams();
-  }, []);
-
-  React.useEffect(() => {
-    teams?.forEach((team) => {
-      setCards([...cards, <TeamCard teamName={team.teamName} />]);
-    });
   }, [teams]);
+
+  // waiting for data to come back from api call before use
+  React.useEffect(() => {
+    const fetchData = async  () => {
+      const result = await getTeams().then()
+      dataSet(result)
+    }
+    fetchData()
+  }, [])
 
   return (
     <>
-      {cards}
+      {data.map(team =>
+        <TeamCard key={team.id} teamName={team.team_name} captainFirst={ team.captain_first} captainLast={ team.captain_last} />
+      )}
     </>
   );
 }
